@@ -29,5 +29,25 @@ pub mod nft {
 
         Ok(())
     }
+
+    pub fn list(ctx: Context<List> , price : u64) -> Result<()> {
+        ctx.accounts.create_listing(price, &ctx.bumps)?;
+        ctx.accounts.deposit_nft()?;
+
+        emit!(ListEvent {
+            maker: ctx.accounts.maker.key(),
+            maker_ata: ctx.accounts.maker_ata.key(),
+            marketplace: ctx.accounts.marketplace.key(),
+            maker_mint: ctx.accounts.maker_mint.key(),
+            vault: ctx.accounts.vault.key(),
+            collection_mint: ctx.accounts.collection_mint.key(),
+            listing: ctx.accounts.listing.key(),
+            name: ctx.accounts.marketplace.name.clone(),
+            price: ctx.accounts.listing.price,
+            fee: ctx.accounts.marketplace.fee,
+        });
+
+        Ok(())
+    }
 }
 

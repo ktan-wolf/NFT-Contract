@@ -9,3 +9,17 @@ pub struct InitializeEvent{
     pub name : String,
     pub fee : u16,
 }
+
+#[event]
+pub struct ListEvent{
+    pub maker : Pubkey,
+    pub maker_ata: Pubkey,
+    pub marketplace:  Pubkey,
+    pub maker_mint: Pubkey,
+    pub vault: Pubkey,
+    pub collection_mint: Pubkey,
+    pub listing: Pubkey,
+    pub name: String,
+    pub price: u64,
+    pub fee: u16,
+}
