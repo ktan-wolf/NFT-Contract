@@ -49,5 +49,28 @@ pub mod nft {
 
         Ok(())
     }
+
+    pub fn purchase(ctx : Context<Purchase>) -> Result<()> {
+        ctx.accounts.purchase()?;
+
+        emit!(PurchaseEvent {
+            maker: ctx.accounts.maker.key(),
+            taker: ctx.accounts.taker.key(),
+            taker_ata: ctx.accounts.taker_ata.key(),
+            marketplace: ctx.accounts.marketplace.key(),
+            treasury: ctx.accounts.treasury.key(),
+            reward_mint: ctx.accounts.reward_mint.key(),
+            maker_rewards_ata: ctx.accounts.maker_rewards_ata.key(),
+            taker_rewards_ata: ctx.accounts.taker_rewards_ata.key(),
+            maker_mint: ctx.accounts.maker_mint.key(),
+            vault: ctx.accounts.vault.key(),
+            listing: ctx.accounts.listing.key(),
+            name: ctx.accounts.marketplace.name.clone(),
+            price: ctx.accounts.listing.price,
+            fee: ctx.accounts.marketplace.fee,
+        });
+
+        Ok(())
+    }
 }
 
