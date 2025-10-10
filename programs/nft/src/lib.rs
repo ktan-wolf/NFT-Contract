@@ -9,7 +9,12 @@ pub use state::*;
 pub mod events;
 pub use events::*; 
 
-declare_id!("C1sPwvGxxsM1vGjwVdJXYrLmVvRGyvWAoLFBZejiNEum");
+pub mod constants;
+pub use constants::*;
+
+pub mod error;
+
+declare_id!("3AtZnEXfmtdb5WSyaNF8XJsDxWju4YDAQJiDycm7UqEN");
 
 #[program]
 pub mod nft {
@@ -64,6 +69,26 @@ pub mod nft {
             taker_rewards_ata: ctx.accounts.taker_rewards_ata.key(),
             maker_mint: ctx.accounts.maker_mint.key(),
             vault: ctx.accounts.vault.key(),
+            listing: ctx.accounts.listing.key(),
+            name: ctx.accounts.marketplace.name.clone(),
+            price: ctx.accounts.listing.price,
+            fee: ctx.accounts.marketplace.fee,
+        });
+
+        Ok(())
+    }
+
+    pub fn delist(ctx:Context<Delist>) -> Result<()>{
+        ctx.accounts.refund_nft()?;
+        ctx.accounts.close_mint_vault()?;
+   
+        emit!(DelistEvent {
+            maker: ctx.accounts.maker.key(),
+            maker_ata: ctx.accounts.maker_ata.key(),
+            marketplace: ctx.accounts.marketplace.key(),
+            maker_mint: ctx.accounts.maker_mint.key(),
+            vault: ctx.accounts.vault.key(),
+            collection_mint: ctx.accounts.collection_mint.key(),
             listing: ctx.accounts.listing.key(),
             name: ctx.accounts.marketplace.name.clone(),
             price: ctx.accounts.listing.price,

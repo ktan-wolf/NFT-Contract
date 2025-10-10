@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-nft = "C1sPwvGxxsM1vGjwVdJXYrLmVvRGyvWAoLFBZejiNEum"
+nft = "3AtZnEXfmtdb5WSyaNF8XJsDxWju4YDAQJiDycm7UqEN"
 
 [registry]
 url = "https://api.apr.dev"
